@@ -23,7 +23,7 @@ public class TaskService {
     private final RestTemplate restTemplate;
     private final TaskEventProducer eventProducer;
     private KafkaTemplate<String, TaskEvent> kafkaTemplate;
-    @Value("${service.board.url}")
+    @Value("${board.service.url}")
     private String boardServiceUrl;
 
     public TaskService(TaskRepository taskRepository, RestTemplate restTemplate, TaskEventProducer eventProducer) {

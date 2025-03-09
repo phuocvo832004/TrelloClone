@@ -6,6 +6,7 @@ import com.example.boardservice.domain.Role;
 import com.example.boardservice.infrastructure.BoardMemberRepository;
 import com.example.boardservice.infrastructure.BoardRepository;
 import com.example.boardservice.infrastructure.KafkaProducerService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -21,7 +22,9 @@ public class BoardService {
     private final KafkaProducerService kafkaProducerService;
     private final BoardMemberRepository boardMemberRepository;
     private final RestTemplate restTemplate;
-    private final String userServiceUrl = "http://user-service:8081";
+
+    @Value("${user.service.url}")
+    private String userServiceUrl;
 
     public BoardService(BoardRepository boardRepository, KafkaProducerService kafkaProducerService, BoardMemberRepository boardMemberRepository, RestTemplate restTemplate) {
         this.boardRepository = boardRepository;
@@ -68,7 +71,6 @@ public class BoardService {
     }
 
     public BoardMember addMember(UUID boardId, UUID userId, Role role) {
-        // Gọi User Service để kiểm tra user có tồn tại không
         String url = userServiceUrl + "/users/exists?userId=" + userId;
         Boolean userExists = restTemplate.getForObject(url, Boolean.class);
 
