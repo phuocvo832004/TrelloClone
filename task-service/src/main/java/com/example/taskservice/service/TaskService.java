@@ -1,6 +1,6 @@
 package com.example.taskservice.service;
 
-import com.example.taskservice.event.TaskEvent;
+import com.example.commonevents.events.TaskEvent;
 import com.example.taskservice.kafka.TaskEventProducer;
 import com.example.taskservice.model.Task;
 import com.example.taskservice.model.TaskStatus;
@@ -33,7 +33,7 @@ public class TaskService {
     }
 
     public void publishTaskEvent(Task task, String eventType) {
-        TaskEvent event = new TaskEvent(task.getId(), task.getBoardId(), task.getTitle(), task.getStatus(), eventType);
+        TaskEvent event = new TaskEvent(task.getId(), task.getBoardId(), task.getTitle(), task.getStatus().toString(), eventType);
         kafkaTemplate.send("task-events", event);
         System.out.println("📤 Sent Task Event: " + event);
     }
@@ -59,7 +59,7 @@ public class TaskService {
                 savedTask.getId(),
                 savedTask.getBoardId(),
                 savedTask.getTitle(),
-                savedTask.getStatus(),
+                savedTask.getStatus().toString(),
                 "CREATED"
         ));
 
@@ -83,7 +83,7 @@ public class TaskService {
                 updatedTask.getId(),
                 updatedTask.getBoardId(),
                 updatedTask.getTitle(),
-                updatedTask.getStatus(),
+                updatedTask.getStatus().toString(),
                 "UPDATED"
         ));
 

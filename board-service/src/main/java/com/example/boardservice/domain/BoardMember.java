@@ -7,8 +7,7 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
-@Setter
+
 @Data
 @Entity
 @Table(name = "board_members")
@@ -26,4 +25,36 @@ public class BoardMember {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

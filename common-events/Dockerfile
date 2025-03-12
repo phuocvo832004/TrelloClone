@@ -5,10 +5,10 @@ FROM openjdk:22
 WORKDIR /app
 
 # Sao chép file jar của ứng dụng vào container
-COPY target/user-service-0.0.1-SNAPSHOT.jar /app/user-service.jar
+COPY target/common-events-0.0.1-SNAPSHOT.jar /app/common-events.jar
 
 # Mở cổng mà ứng dụng sẽ lắng nghe
 EXPOSE 8081
 
 # Chạy ứng dụng khi container khởi động
-ENTRYPOINT ["java", "-jar", "user-service.jar"]
+ENTRYPOINT ["java", "-jar", "common-events.jar"]

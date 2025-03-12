@@ -4,6 +4,21 @@ networks:
 
 services:
 
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8088:8088"
+    depends_on:
+      - user-service
+      - board-service
+      - task-service
+      - notification-service
+    networks:
+      - mynetwork
+
   user-service:
     build:
       context: ./user-service
@@ -42,7 +57,7 @@ services:
       dockerfile: Dockerfile
     container_name: task-service
     ports:
-      - "8083:8083"
+      - "8087:8087"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ep-mute-cherry-a1a2vpx4-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
       - SPRING_DATASOURCE_USERNAME=neondb_owner
@@ -58,7 +73,7 @@ services:
       dockerfile: Dockerfile
     container_name: notification-service
     ports:
-      - "8084:8084"
+      - "8083:8083"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://ep-nameless-rice-a1iawmbl-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
       - SPRING_DATASOURCE_USERNAME=neondb_owner

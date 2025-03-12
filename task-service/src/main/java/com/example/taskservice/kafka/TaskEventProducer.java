@@ -1,6 +1,6 @@
 package com.example.taskservice.kafka;
 
-import com.example.taskservice.event.TaskEvent;
+import com.example.commonevents.events.TaskEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
