@@ -68,35 +68,35 @@ public class SecurityConfig {
         return authorizedClientManager;
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers(
-//                                "/swagger-ui/**",
-//                                "/v3/api-docs/**",
-//                                "/api-docs/**",
-//                                "/swagger-ui.html",
-//                                "/auth/login",
-//                                "/auth/register",
-//                                "/auth/logout").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
-//
-//        return http.build();
-//    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .formLogin(AbstractHttpConfigurer::disable)  // Tắt form login
-                .httpBasic(AbstractHttpConfigurer::disable); // Tắt basic auth
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/api-docs/**",
+                                "/swagger-ui.html",
+                                "/auth/login",
+                                "/auth/register",
+                                "/auth/logout").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
         return http.build();
     }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//                .formLogin(AbstractHttpConfigurer::disable)  // Tắt form login
+//                .httpBasic(AbstractHttpConfigurer::disable); // Tắt basic auth
+//
+//        return http.build();
+//    }
 
 }
